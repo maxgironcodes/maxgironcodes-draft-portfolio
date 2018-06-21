@@ -1,0 +1,188 @@
+/* Variables
+---------------------------- */
+
+$accent-color: scale-color(orange, $lightness: 50%);
+
+// Source for type effect: http://jsfiddle.net/E3uD3/
+$terminal-width: 110px;
+
+$grid-width: 1080px;
+$grid-gutter: 15px;
+$grid-total: 12;
+
+
+/* Mixins
+---------------------------- */
+
+@mixin columns($num-of-col, $offset: 0) {
+  width: 100%;
+  box-sizing: border-box;
+  padding: $grid-gutter;
+  float: left;
+
+  @media only screen and (min-width: 768px) {
+    width: percentage($num-of-col / $grid-total);
+
+    @if $offset > 0 {
+      margin-left: percentage($offset / $grid-total);
+    }
+  }
+}
+
+/* Animations
+---------------------------- */
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: lightgray; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: $terminal-width; }
+}
+
+
+/* Base
+---------------------------- */
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #FAFBFB;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin-bottom: 10px;
+  color: $accent-color;
+}
+
+p {
+  font-size: 0.92rem;
+  line-height: 1.95;
+  color: #444;
+}
+
+ul {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+
+/* Utilities
+---------------------------- */
+
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+
+/* Modules
+---------------------------- */
+
+#header {
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+}
+
+.profile {
+  padding: $grid-gutter $grid-gutter * 2;
+  position: relative;
+
+  &-image {
+    width: 50px;
+    height: 50px;
+    background-color: $accent-color;
+    border-radius: 50%;
+    display: block;
+  }
+  &-name {
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    transform: translateY(-50%);
+  }
+}
+
+#wrapper {
+  max-width: $grid-width;
+  margin: 0 auto;
+}
+
+#intro {
+  max-width: $grid-width * 0.65;
+  padding: 180px 0 120px $grid-gutter;
+  margin: auto;
+}
+
+.terminal-text {
+  width: $terminal-width;
+  letter-spacing: 0.5px;
+  color: lightgray;
+  display: block;
+  margin-bottom: $grid-gutter;
+	white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid black;
+  animation: typing 2s steps(26, end), blink-caret 1s step-end infinite;
+}
+
+.card {
+  @include columns(4);
+
+  &-content {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 2px solid #ececec;
+    border-radius: 5px;
+  }
+  &-image {
+    width: 100%;
+    height: 230px;
+    background-color: $accent-color;
+  }
+  &-tags {
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    background-color: #e6e9eb;
+    border-radius: 5px;
+    padding: 4px 10px;
+    margin-right: 3px;
+  }
+  &-caption {
+    padding: $grid-gutter * 2;
+  }
+}
+
+#footer {
+  font-size: 0.75rem;
+  color: lightgray;
+  text-align: center;
+  padding-bottom: $grid-gutter;
+}
